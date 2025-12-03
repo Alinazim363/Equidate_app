@@ -4,7 +4,7 @@
 
 This is the frontend component of Equidate, a meet-in-the-middle venue finder that helps two people find fair places to meet using geographic midpoint calculations and MongoDB geospatial queries.
 
-🔗 **Live Demo**: [Your Streamlit Cloud URL here]
+🔗 **Live Demo**: (https://equidate.streamlit.app/)
 
 ---
 
@@ -266,16 +266,6 @@ frontend/
 ├── requirements.txt     # Python dependencies
 └── README.md           # This file
 ```
-
-**app2.py Structure:**
-- Lines 1-33: Imports and configuration
-- Lines 35-166: Custom CSS styling
-- Lines 168-209: Database connection and caching
-- Lines 211-244: Geocoding functions
-- Lines 246-271: Midpoint calculation
-- Lines 273-314: MongoDB query function
-- Lines 316-410: Map creation with Folium
-- Lines 412-1006: Main Streamlit UI and logic
 
 ---
 
