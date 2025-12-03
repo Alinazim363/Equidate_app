@@ -108,6 +108,33 @@ st.markdown("""
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(255, 92, 147, 0.4);
     }
+
+    /* Scrollable venue container */
+    .scrollable-venues {
+        max-height: 600px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 10px;
+    }
+
+    /* Custom scrollbar for venue section */
+    .scrollable-venues::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .scrollable-venues::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .scrollable-venues::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #ff5c93 0%, #ff7eb3 100%);
+        border-radius: 10px;
+    }
+
+    .scrollable-venues::-webkit-scrollbar-thumb:hover {
+        background: #ff5c93;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -922,7 +949,7 @@ def main():
                 """
             <div style="text-align: center; padding: 1.5rem;">
                 <h3 style="color:#1f1f1f;">🍽️ Real Venues</h3>
-                <p style="color: #666;">Sourced from your MongoDB <b>Equidate_db.Venues</b> collection.</p>
+                <p style="color: #666;">Sourced Directly from <b>Google!</b></p>
             </div>
             """,
                 unsafe_allow_html=True,
