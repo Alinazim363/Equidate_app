@@ -13,11 +13,15 @@ from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
 from geopy.extra.rate_limiter import RateLimiter
 from pymongo import MongoClient
-from dotenv import load_dotenv
 import pandas as pd
 
-# Load environment variables
-load_dotenv()
+# Load environment variables - works for both local (.env) and Streamlit Cloud (secrets)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # Running on Streamlit Cloud - dotenv not needed
+    pass
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -201,10 +205,20 @@ st.markdown("""
 def get_database():
     """Connect to MongoDB and return the venues collection."""
     try:
+        # Try to get MONGO_URI from environment variable or Streamlit secrets
         mongo_uri = os.getenv("MONGO_URI")
+        
+        # If not in environment, try Streamlit secrets
         if not mongo_uri:
-            st.error("MongoDB URI not found. Please check your .env file.")
+            try:
+                mongo_uri = st.secrets["MONGO_URI"]
+            except:
+                pass
+        
+        if not mongo_uri:
+            st.error("MongoDB URI not found. Please check your environment variables or Streamlit secrets.")
             return None
+            
         client = MongoClient(mongo_uri, serverSelectionTimeoutMS=5000)
         # Test connection
         client.server_info()
@@ -987,7 +1001,7 @@ def main():
                 """
             <div style="text-align: center; padding: 1.5rem;">
                 <h3 style="color:#1f1f1f;">🍽️ Real Venues</h3>
-                <p style="color: #666;">Sourced Directly From <b>Google!<b></p>
+                <p style="color: #666;">Sourced Directly From <b>Google!</b></p>
             </div>
             """,
                 unsafe_allow_html=True,
