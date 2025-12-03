@@ -38,47 +38,9 @@ geocode_raw = RateLimiter(geolocator.geocode, min_delay_seconds=1)
 # --- Custom CSS for Styling ---
 st.markdown("""
 <style>
-    /* Force dark sidebar */
-    section[data-testid="stSidebar"] {
-        background-color: #262730 !important;
-    }
-    
-    section[data-testid="stSidebar"] > div {
-        background-color: #262730 !important;
-    }
-    
-    /* Sidebar text colors */
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] .stMarkdown,
-    section[data-testid="stSidebar"] p {
-        color: #ffffff !important;
-    }
-    
-    /* Sidebar input fields */
-    section[data-testid="stSidebar"] input {
-        background-color: #3d3d4d !important;
-        color: #ffffff !important;
-        border: 1px solid #4d4d5d !important;
-    }
-    
-    /* Sidebar selectbox */
-    section[data-testid="stSidebar"] .stSelectbox > div > div {
-        background-color: #3d3d4d !important;
-        color: #ffffff !important;
-    }
-    
-    /* Sidebar slider */
-    section[data-testid="stSidebar"] .stSlider > div > div > div {
-        color: #ffffff !important;
-    }
-
-    /* Overall page background - light pink */
+    /* Overall page background */
     .main {
-        background: linear-gradient(135deg, #ffeaf3 0%, #f7f7ff 50%, #ffe8f0 100%) !important;
-    }
-    
-    .block-container {
-        background: transparent !important;
+        background: linear-gradient(135deg, #ffeaf3 0%, #f7f7ff 50%, #ffe8f0 100%);
     }
 
     /* Main header styling */
@@ -145,94 +107,6 @@ st.markdown("""
     .stButton > button:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(255, 92, 147, 0.4);
-    }
-
-    /* Loading spinner text - make it black */
-    .stSpinner > div > div {
-        color: #1f1f1f !important;
-    }
-    
-    /* Spinner text */
-    div[data-testid="stSpinner"] > div {
-        color: #1f1f1f !important;
-    }
-
-    /* Venue card styling - make the expander look like cards */
-    div[data-testid="stExpander"] {
-        background: linear-gradient(135deg, #ff5c93 0%, #ff7eb3 100%) !important;
-        border: 2px solid #ff5c93 !important;
-        border-radius: 10px !important;
-        margin-bottom: 12px !important;
-        box-shadow: 0 2px 8px rgba(255, 92, 147, 0.2) !important;
-        overflow: hidden;
-    }
-
-    div[data-testid="stExpander"]:hover {
-        box-shadow: 0 4px 12px rgba(255, 92, 147, 0.3) !important;
-        transform: translateY(-2px);
-        transition: all 0.2s ease;
-    }
-
-    /* Make expander header text WHITE and visible */
-    div[data-testid="stExpander"] details summary {
-        background: linear-gradient(135deg, #ff5c93 0%, #ff7eb3 100%) !important;
-        color: #ffffff !important;
-        font-weight: 600 !important;
-        padding: 12px 16px !important;
-    }
-
-    div[data-testid="stExpander"] details summary p,
-    div[data-testid="stExpander"] details summary strong {
-        color: #ffffff !important;
-    }
-
-    /* Style the expanded content area with white background */
-    div[data-testid="stExpander"] details[open] {
-        background-color: #ffffff !important;
-    }
-    
-    div[data-testid="stExpander"] div[role="button"] {
-        background: linear-gradient(135deg, #ff5c93 0%, #ff7eb3 100%) !important;
-    }
-
-    /* Make metric labels and values BLACK in debug section */
-    div[data-testid="stMetric"] label {
-        color: #1f1f1f !important;
-    }
-    
-    div[data-testid="stMetricValue"] {
-        color: #1f1f1f !important;
-    }
-
-    div[data-testid="stMetricLabel"] {
-        color: #1f1f1f !important;
-    }
-
-    /* Scrollable venue container */
-    .scrollable-venues {
-        max-height: 600px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding-right: 10px;
-    }
-
-    /* Custom scrollbar for venue section */
-    .scrollable-venues::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .scrollable-venues::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-    }
-
-    .scrollable-venues::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #ff5c93 0%, #ff7eb3 100%);
-        border-radius: 10px;
-    }
-
-    .scrollable-venues::-webkit-scrollbar-thumb:hover {
-        background: #ff5c93;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -1048,7 +922,7 @@ def main():
                 """
             <div style="text-align: center; padding: 1.5rem;">
                 <h3 style="color:#1f1f1f;">🍽️ Real Venues</h3>
-                <p style="color: #666;">Sourced Direclty from <b>Google!</b></p>
+                <p style="color: #666;">Sourced from your MongoDB <b>Equidate_db.Venues</b> collection.</p>
             </div>
             """,
                 unsafe_allow_html=True,
