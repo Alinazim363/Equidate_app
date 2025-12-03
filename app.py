@@ -219,15 +219,16 @@ def get_database():
             st.error("MongoDB URI not found. Please check your environment variables or Streamlit secrets.")
             return None
             
-        client = MongoClient(mongo_uri, serverSelectionTimeoutMS=5000)
+        client = MongoClient(mongo_uri, serverSelectionTimeoutMS=10000)
         # Test connection
         client.server_info()
         db = client["Equidate_db"]
         venues_collection = db["Venues"]
 
-        # Ensure 2dsphere index on loc for $geoNear
-        venues_collection.create_index([("loc", "2dsphere")])
-
+        # Don't try to create index - it already exists
+        # Just verify we can access the collection
+        count = venues_collection.count_documents({}, limit=1)
+        
         return venues_collection
     except Exception as e:
         st.error(f"Failed to connect to MongoDB: {str(e)}")
@@ -319,7 +320,15 @@ def query_nearby_venues(venues_collection, mid_lat, mid_lon, max_distance=1500, 
         
         return results, debug_info
     except Exception as e:
-        st.error(f"Database query error: {str(e)}")
+        error_msg = str(e)
+        st.error(f"Database query error: {error_msg}")
+        
+        # Provide more specific error messages
+        if "single index" in error_msg.lower():
+            st.error("🔍 Index issue detected. The 'loc' field needs a 2dsphere index. Please check MongoDB Atlas Indexes tab.")
+        elif "coordinates" in error_msg.lower():
+            st.error("📍 Coordinate format issue. Please verify your venue documents have GeoJSON format.")
+        
         return [], None
 
 
