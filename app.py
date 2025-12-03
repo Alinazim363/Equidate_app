@@ -15,27 +15,6 @@ from geopy.extra.rate_limiter import RateLimiter
 from pymongo import MongoClient
 import pandas as pd
 
-# Force light theme with dark sidebar
-st.set_page_config(
-    page_title="Equidate - Find Your Fair Meetup Spot",
-    page_icon="📍",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    menu_items={
-        'Get Help': None,
-        'Report a bug': None,
-        'About': None
-    }
-)
-
-# Set theme via markdown (override any config)
-st.markdown("""
-<script>
-    var elements = window.parent.document.querySelectorAll('.stApp');
-    elements[0].style.backgroundColor = '#ffeaf3';
-</script>
-""", unsafe_allow_html=True)
-
 # Load environment variables - works for both local (.env) and Streamlit Cloud (secrets)
 try:
     from dotenv import load_dotenv
@@ -59,9 +38,47 @@ geocode_raw = RateLimiter(geolocator.geocode, min_delay_seconds=1)
 # --- Custom CSS for Styling ---
 st.markdown("""
 <style>
-    /* Overall page background */
+    /* Force dark sidebar */
+    section[data-testid="stSidebar"] {
+        background-color: #262730 !important;
+    }
+    
+    section[data-testid="stSidebar"] > div {
+        background-color: #262730 !important;
+    }
+    
+    /* Sidebar text colors */
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] .stMarkdown,
+    section[data-testid="stSidebar"] p {
+        color: #ffffff !important;
+    }
+    
+    /* Sidebar input fields */
+    section[data-testid="stSidebar"] input {
+        background-color: #3d3d4d !important;
+        color: #ffffff !important;
+        border: 1px solid #4d4d5d !important;
+    }
+    
+    /* Sidebar selectbox */
+    section[data-testid="stSidebar"] .stSelectbox > div > div {
+        background-color: #3d3d4d !important;
+        color: #ffffff !important;
+    }
+    
+    /* Sidebar slider */
+    section[data-testid="stSidebar"] .stSlider > div > div > div {
+        color: #ffffff !important;
+    }
+
+    /* Overall page background - light pink */
     .main {
-        background: linear-gradient(135deg, #ffeaf3 0%, #f7f7ff 50%, #ffe8f0 100%);
+        background: linear-gradient(135deg, #ffeaf3 0%, #f7f7ff 50%, #ffe8f0 100%) !important;
+    }
+    
+    .block-container {
+        background: transparent !important;
     }
 
     /* Main header styling */
@@ -1031,7 +1048,7 @@ def main():
                 """
             <div style="text-align: center; padding: 1.5rem;">
                 <h3 style="color:#1f1f1f;">🍽️ Real Venues</h3>
-                <p style="color: #666;">Sourced Directly From <b>Google!</b></p>
+                <p style="color: #666;">Sourced Direclty from <b>Google!</b></p>
             </div>
             """,
                 unsafe_allow_html=True,
