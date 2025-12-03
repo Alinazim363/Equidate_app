@@ -15,6 +15,27 @@ from geopy.extra.rate_limiter import RateLimiter
 from pymongo import MongoClient
 import pandas as pd
 
+# Force light theme with dark sidebar
+st.set_page_config(
+    page_title="Equidate - Find Your Fair Meetup Spot",
+    page_icon="📍",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': None,
+        'Report a bug': None,
+        'About': None
+    }
+)
+
+# Set theme via markdown (override any config)
+st.markdown("""
+<script>
+    var elements = window.parent.document.querySelectorAll('.stApp');
+    elements[0].style.backgroundColor = '#ffeaf3';
+</script>
+""", unsafe_allow_html=True)
+
 # Load environment variables - works for both local (.env) and Streamlit Cloud (secrets)
 try:
     from dotenv import load_dotenv
