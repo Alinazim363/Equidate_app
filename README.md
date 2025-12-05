@@ -304,14 +304,6 @@ This frontend was built as part of a database systems course project to demonstr
 - Font Awesome (via Folium markers)
 - Native emoji support
 
----
-
-## Support
-
-For issues or questions about the frontend:
-- Check the Developer Debug section in the app
-- Review error messages in the Streamlit interface
-- Verify MongoDB connection in secrets
 
 ---
 
